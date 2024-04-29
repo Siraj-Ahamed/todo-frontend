@@ -12,8 +12,8 @@ export default function Todo() {
     const [editDescription, setEditDescription] = useState("");
 
     // const apiUrl = "http://localhost:8000";
-    const apiUrl = "http://localhost:8000";
-    
+    const apiUrl = "https://todo-backen-o6d2.onrender.com";
+
     const handleSubmit = () => {
         setError("");
         // check inputs
@@ -158,82 +158,84 @@ export default function Todo() {
             </div>
             <div className="row p-3 mt-3">
                 <h3>Tasks</h3>
-               <div className="col-md-6">
-               <ul className="list-group">
-                    {todos.map((item) => (
-                        <li
-                            key={item._id}
-                            className="list-group-item bg-info d-flex justify-content-between align-items-center my-2"
-                        >
-                            <div className="d-flex flex-column me-2">
-                                {editId === -1 || editId !== item._id ? (
-                                    <>
-                                        <span className="fw-bold">
-                                            {item.title}
-                                        </span>
-                                        <span>{item.description}</span>
-                                    </>
-                                ) : (
-                                    <div className="form-group d-flex gap-2">
-                                        <input
-                                            placeholder="title"
-                                            type="text"
-                                            value={editTitle}
-                                            onChange={(e) =>
-                                                setEditTitle(e.target.value)
+                <div className="col-md-6">
+                    <ul className="list-group">
+                        {todos.map((item) => (
+                            <li
+                                key={item._id}
+                                className="list-group-item bg-info d-flex justify-content-between align-items-center my-2"
+                            >
+                                <div className="d-flex flex-column me-2">
+                                    {editId === -1 || editId !== item._id ? (
+                                        <>
+                                            <span className="fw-bold">
+                                                {item.title}
+                                            </span>
+                                            <span>{item.description}</span>
+                                        </>
+                                    ) : (
+                                        <div className="form-group d-flex gap-2">
+                                            <input
+                                                placeholder="title"
+                                                type="text"
+                                                value={editTitle}
+                                                onChange={(e) =>
+                                                    setEditTitle(e.target.value)
+                                                }
+                                                className="form-control"
+                                            />
+                                            <input
+                                                placeholder="description"
+                                                type="text"
+                                                onChange={(e) =>
+                                                    setEditDescription(
+                                                        e.target.value
+                                                    )
+                                                }
+                                                value={editDescription}
+                                                className="form-control"
+                                            />
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="d-flex gap-2">
+                                    {editId === -1 || editId !== item._id ? (
+                                        <button
+                                            className="btn btn-warning"
+                                            onClick={() => handleEdit(item)}
+                                        >
+                                            Edit
+                                        </button>
+                                    ) : (
+                                        <button
+                                            className="btn btn-warning"
+                                            onClick={handleUpdate}
+                                        >
+                                            Update
+                                        </button>
+                                    )}
+                                    {editId === -1 ? (
+                                        <button
+                                            className="btn btn-danger"
+                                            onClick={() =>
+                                                handleDelete(item._id)
                                             }
-                                            className="form-control"
-                                        />
-                                        <input
-                                            placeholder="description"
-                                            type="text"
-                                            onChange={(e) =>
-                                                setEditDescription(
-                                                    e.target.value
-                                                )
-                                            }
-                                            value={editDescription}
-                                            className="form-control"
-                                        />
-                                    </div>
-                                )}
-                            </div>
-                            <div className="d-flex gap-2">
-                                {editId === -1 || editId !== item._id ? (
-                                    <button
-                                        className="btn btn-warning"
-                                        onClick={() => handleEdit(item)}
-                                    >
-                                        Edit
-                                    </button>
-                                ) : (
-                                    <button
-                                        className="btn btn-warning"
-                                        onClick={handleUpdate}
-                                    >
-                                        Update
-                                    </button>
-                                )}
-                                {editId === -1 ? (
-                                    <button
-                                        className="btn btn-danger"
-                                        onClick={() => handleDelete(item._id)}
-                                    >
-                                        Delete
-                                    </button>
-                                ) : (
-                                    <button
-                                        className="btn btn-danger"
-                                        onClick={handleEditCancel}
-                                    >
-                                        Cancel
-                                    </button>
-                                )}
-                            </div>
-                        </li>
-                    ))}
-                </ul>
-               </div>
+                                        >
+                                            Delete
+                                        </button>
+                                    ) : (
+                                        <button
+                                            className="btn btn-danger"
+                                            onClick={handleEditCancel}
+                                        >
+                                            Cancel
+                                        </button>
+                                    )}
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             </div>
         </>
     );
