@@ -7,6 +7,7 @@ export default function Todo() {
     const [message, setMessage] = useState("");
     const [editId, setEditId] = useState(-1);
     const [todos, setTodos] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const [editTitle, setEditTitle] = useState("");
     const [editDescription, setEditDescription] = useState("");
@@ -49,6 +50,7 @@ export default function Todo() {
     };
 
     useEffect(() => {
+        setLoading(true);
         getItems();
     }, []);
 
@@ -60,6 +62,10 @@ export default function Todo() {
             .then((res) => {
                 console.log("ALL TODOS", res);
                 setTodos(res);
+                setLoading(false);
+            }).catch(() => {
+                setError("Unable to fetch todo items");
+                setLoading(false); // Set loading to false in case of error
             });
     };
 
@@ -157,6 +163,7 @@ export default function Todo() {
                 {error && <p className="text-danger">{error}</p>}
             </div>
             <div className="row p-3 mt-3">
+            {loading && <p>Loading...</p>}
                 <h3>Tasks</h3>
                 <div className="col-md-6">
                     <ul className="list-group">
